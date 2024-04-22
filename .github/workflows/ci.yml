@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '21.7.3'  # Укажите версию Node.js, которая нужна для вашего проекта
+        node-version: '21.7.3'  
 
     - name: Install dependencies
       run: npm install
@@ -25,4 +25,4 @@ jobs:
       run: npm test
 
     - name: Build
-      run: npm run build  # Если у вас есть скрипт сборки
+      run: npm run build  
