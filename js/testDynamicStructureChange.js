@@ -4,7 +4,7 @@ function testDynamicStructureChange() {
     console.time("Dynamic Structure Change");
 
     let animals = [];
-    for (let i = 0; i < 100000; i++) {
+    for (let i = 0; i < 10000; i++) {
         let animal = new Animal("Animal " + i);
         animals.push(animal);
         if (i % 10 === 0) {

@@ -1,0 +1,31 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Pull the latest Docker image
+      run: docker pull rinatto/my-node-app:1.0
+
+    - name: Stop the current container
+      run: docker stop mynodeapp || true
+
+    - name: Remove the stopped container
+      run: docker rm mynodeapp || true
+
+    - name: Run the new container
+      run: docker run -d -p 3000:3000 --name mynodeapp rinatto/my-node-app:1.0
